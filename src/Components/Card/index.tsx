@@ -52,13 +52,15 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
         image={image || fallbackImage}
         alt={title}
       />
-      <CardContent>
-        <Summary
-          variant="body2"
-          color="text.secondary"
-          dangerouslySetInnerHTML={{__html: summary}}>
-        </Summary>
-      </CardContent>
+      {summary &&
+        <CardContent>
+          <Summary
+            variant="body2"
+            color="text.secondary"
+            dangerouslySetInnerHTML={{__html: summary}}>
+          </Summary>
+        </CardContent>
+      }
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />

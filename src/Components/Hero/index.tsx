@@ -24,8 +24,8 @@ const Hero = ({ title, primary, secondary }: HeroI) => (
       <Typography variant="h2" component="h1" gutterBottom>
         {title}
       </Typography>
-      <Button sx={{ mr: 4, mb: 2}} variant="contained">{primary.text}</Button>
-      <Button sx={{ mb: 2 }} variant="outlined">{secondary.text}</Button>
+      <Button sx={{ mr: 4, mb: 2}} href={primary.url} variant="contained">{primary.text}</Button>
+      <Button sx={{ mb: 2 }} href={secondary.url} variant="outlined">{secondary.text}</Button>
     </Grid>
     <Grid item xs={12} md={6}>
       <HeroImage src="/recipe_hero.jpg" alt="Recipe" />

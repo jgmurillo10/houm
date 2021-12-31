@@ -4,6 +4,6 @@ import App from './index';
 
 test('renders title element', () => {
   render(<App />);
-  const titleElement = screen.getByText(/Fud/i);
-  expect(titleElement).toBeInTheDocument();
+  const exploreButton = screen.getByText(/Explore trending/i);
+  expect(exploreButton).toBeInTheDocument();
 });
