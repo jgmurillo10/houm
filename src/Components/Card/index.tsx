@@ -11,9 +11,10 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import { Recipe } from '../../common/types';
+import { RecipeI } from '../../common/types';
 import { styled } from '@mui/material';
 
+const fallbackImage = 'https://spoonacular.com/recipeImages/18079-240x150.jpg';
 
 const RightAlignedButton = styled(Button)({
   marginLeft: "auto"
@@ -33,7 +34,7 @@ const Summary = styled(Typography)({
   },
 });
 
-export default function RecipeReviewCard({id, title, image, summary}: Recipe) {
+export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
   return (
     <Card>
       <CardHeader
@@ -48,8 +49,8 @@ export default function RecipeReviewCard({id, title, image, summary}: Recipe) {
       <CardMedia
         component="img"
         height="194"
-        image={image || 'https://spoonacular.com/recipeImages/18079-240x150.jpg'}
-        alt="Paella dish"
+        image={image || fallbackImage}
+        alt={title}
       />
       <CardContent>
         <Summary
