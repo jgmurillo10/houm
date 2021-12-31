@@ -6,6 +6,7 @@ import { HeroI } from '../../common/types';
 import { Link } from 'react-router-dom';
 
 const HeroImage = styled('img')(({ theme }) => ({
+  borderRadius: 15,
   clipPath: 'circle(100.6% at 50% 43%)',
   height: 200,
   maxHeight: 200,

@@ -4,11 +4,12 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Home from "./Pages/Home";
-import Trending from "./Pages/Trending";
-import Menu from "./Components/Menu";
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Home from './Pages/Home';
+import Menu from './Components/Menu';
+import Trending from './Pages/Trending';
+import Recipe from './Pages/Recipe';
 
 export default function BasicExample() {
   return (
@@ -19,6 +20,7 @@ export default function BasicExample() {
           <Container maxWidth="lg">
             <Routes>
               <Route path="/" element={<Home />}></Route>
+              <Route path="/recipes/:recipeId" element={<Recipe />} />
               <Route path="/trending" element={<Trending />}></Route>
             </Routes>
             </Container>
