@@ -1,0 +1,35 @@
+name: CI/CD
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+      - main
+  repository_dispatch:
+    schedule:
+      - cron: '5 12 * * 0'
+jobs:
+  CI-CD:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install packages
+        run: npm install
+      - name: Install create-react-app
+        run: npm i -g create-react-app
+      - name: Install surge
+        run: npm i -g surge
+      - name: Build
+        run: npm run build
+      - name: Deploy to houm-juan.surge.sh
+        uses: dswistowski/surge-sh-action@v1
+        with:
+          domain: 'houm-juan.surge.sh'
+          project: './build'
+          login: ${{ secrets.SURGE_LOGIN }}
+          token: ${{ secrets.SURGE_TOKEN }}
