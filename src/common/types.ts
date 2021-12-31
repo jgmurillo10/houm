@@ -15,3 +15,8 @@ export interface HeroI {
   primary: LinkI;
   secondary: LinkI;
 };
+
+export interface PageI {
+  label: string;
+  route: string;
+}
