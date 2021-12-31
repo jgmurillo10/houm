@@ -26,6 +26,8 @@ jobs:
         run: npm i -g surge
       - name: Build
         run: npm run build
+        env:
+          REACT_APP_RAPID_API_KEY: ${{ secrets.REACT_APP_RAPID_API_KEY }}
       - name: Test
         run: npm run test
       - name: Deploy to houm-juan.surge.sh
