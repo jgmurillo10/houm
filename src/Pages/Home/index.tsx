@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback, useRef, MutableRefObject } from 'react';
 import Typography from '@mui/material/Typography';
 import debounce from 'lodash.debounce';
 import Box from '@mui/material/Box';
@@ -20,32 +20,33 @@ const config = {
 function Home() {
   const [resultRecipes, setResultRecipes] = useState([]);
 
-  let cancelToken: CancelTokenSource;
-  const handleQuery = async (e : React.ChangeEvent<HTMLInputElement>) => {
-      if (typeof cancelToken != typeof undefined) {
-        cancelToken.cancel("Operation canceled due to new request.")
-      }
-
-      cancelToken = axios.CancelToken.source();
-    const params = {
-      query: e.target.value,
-    };
-
-    try {
-      const { data } = await axios.get(
-        `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search`,
-        {...config, params, cancelToken: cancelToken.token });
-      console.log('results for', e.target.value)
-
-      setResultRecipes(data.results);
-    } catch (e) {
-      console.log(e)
+  let cancelToken: MutableRefObject<CancelTokenSource> =
+    useRef(axios.CancelToken.source());
+  const handleQuery = useCallback(async (e : React.ChangeEvent<HTMLInputElement>) => {
+    if (typeof cancelToken != typeof undefined) {
+      cancelToken.current.cancel("Operation canceled due to new request.")
     }
+
+    cancelToken.current = axios.CancelToken.source();
+  const params = {
+    query: e.target.value,
+  };
+
+  try {
+    const { data } = await axios.get(
+      `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search`,
+      {...config, params, cancelToken: cancelToken.current.token });
+    console.log('results for', e.target.value)
+
+    setResultRecipes(data.results);
+  } catch (e) {
+    console.log(e)
   }
+}, [])
 
   const debouncedChangeHandler = useMemo(
     () => debounce(handleQuery, 300)
-  , []);
+  , [handleQuery]);
 
   useEffect(() => {
     return () => {
