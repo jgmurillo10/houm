@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './index';
 
-test('renders search button', () => {
+test('renders title element', () => {
   render(<App />);
-  const searchElement = screen.getByText(/search/i);
-  expect(searchElement).toBeInTheDocument();
+  const titleElement = screen.getByText(/Fud/i);
+  expect(titleElement).toBeInTheDocument();
 });
