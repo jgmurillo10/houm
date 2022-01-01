@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Hero from './../../Components/Hero';
-import Card from './../../Components/Card';
+import Card, { CardLoading } from './../../Components/Card';
 import { ComboBox, CheckboxesTags} from './../../Components/Autocomplete';
 import axios, { CancelTokenSource } from 'axios';
 import { RecipeI } from '../../common/types';
@@ -99,12 +99,16 @@ const PanelSearch = () => {
         onChange={(e) => setSearchParams({ ...searchParams, query: e.target.value })} />
       <ComboBox onChange={handleDiet} />
       <CheckboxesTags onChange={handleCuisine} />
-      {resultRecipes.length === 0 && <div>Uh oh! try changing your filters or your search</div>}
       <Grid
         container
         justifyContent="flex-start"
         rowSpacing={3}
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
+        {resultRecipes.length === 0 && [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(_ =>
+          <Grid key={_} item xs={12} sm={6} md={6} lg={4}>
+            <CardLoading />
+          </Grid>
+        )}
         {resultRecipes.map((randomRecipe:RecipeI) =>
           <Grid key={randomRecipe.id} item xs={12} sm={6} md={6} lg={4}>
             <Card

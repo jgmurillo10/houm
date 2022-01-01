@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from './../../Components/Card';
+import Card, { CardLoading } from './../../Components/Card';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { RecipeI } from '../../common/types';
@@ -44,6 +44,11 @@ const Trending = () => {
             />
           </Grid>
           )}
+        {status === 'loading' && [0,1,2,3,4,5,6,7,8].map((i) => (
+          <Grid key={i} item xs={12} sm={6} md={6} lg={4}>
+           <CardLoading summary />
+         </Grid>
+        ))}
       </Grid>
       <Button
         disabled={status === 'loading'}
