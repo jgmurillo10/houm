@@ -18,6 +18,12 @@ const RightAlignedButton = styled(Button)({
   marginLeft: "auto"
 });
 
+const WrappedTitle = styled(Typography)({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
+
 const Summary = styled(Typography)({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
@@ -43,9 +49,9 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
           alt={title}
         />
         <CardContent>
-        <Typography sx={{height: 65}} gutterBottom variant="h5" component="div">
+        <WrappedTitle gutterBottom variant="h5">
           {title}
-        </Typography>
+        </WrappedTitle>
         {summary &&
           <Summary
             variant="body2"

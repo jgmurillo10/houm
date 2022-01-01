@@ -1,48 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import axios, { CancelTokenSource } from 'axios';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Card from './../../Components/Card';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { RecipeI } from '../../common/types';
-
-const api = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=6'
-const config = {
-  headers: {
-    'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-    'x-rapidapi-key': process.env.REACT_APP_RAPID_API_KEY || '',
-  }
-}
+import { fetchRecipes, selectTrending, selectTrendingStatus } from './../../features/trending/trendingSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const Trending = () => {
-  const [randomRecipes, setRandomRecipes] = useState([]);
+  const recipes = useAppSelector(selectTrending);
+  const status = useAppSelector(selectTrendingStatus);
+  const dispatch = useAppDispatch();
+
 
   useEffect(() => {
-    let cancelToken: CancelTokenSource;
-    const fetchRandomRecipes = async () => {
-      if (typeof cancelToken != typeof undefined) {
-        cancelToken.cancel("Operation canceled due to new request.")
-      }
-
-      cancelToken = axios.CancelToken.source();
-
-      try {
-        const { data } = await axios.get(api, {...config, cancelToken: cancelToken.token});
-
-        setRandomRecipes(data.recipes);
-      } catch (error) {
-        console.log(error);
-      }
+    if (recipes.length === 0) {
+      dispatch(fetchRecipes())
     }
-
-    fetchRandomRecipes();
-
-    return () => {
-      if (typeof cancelToken != typeof undefined) {
-        cancelToken.cancel("Operation canceled due to new request.")
-      }
-    }
-  }, [])
+  }, [dispatch, recipes.length])
 
   return (
     <Box sx={{ py: 6 }}>
@@ -54,17 +30,20 @@ const Trending = () => {
         justifyContent="flex-start"
         rowSpacing={3}
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
-        {randomRecipes.map((randomRecipe:RecipeI) =>
-          <Grid key={randomRecipe.id} item xs={12} sm={6} md={6} lg={4}>
+        {recipes.map((recipe:RecipeI) =>
+          <Grid key={recipe.id} item xs={12} sm={6} md={6} lg={4}>
             <Card
-              id={randomRecipe.id}
-              title={randomRecipe.title}
-              image={randomRecipe.image}
-              summary={randomRecipe.summary}
+              id={recipe.id}
+              title={recipe.title}
+              image={recipe.image}
+              summary={recipe.summary}
             />
           </Grid>
           )}
       </Grid>
+      <Button disabled={status === 'loading'} sx={{ mt: 4 }} variant="contained" onClick={() => dispatch(fetchRecipes())}>
+        {status === 'idle' ? 'Load more' : 'Loading'}
+      </Button>
     </Box>
   );
 };
