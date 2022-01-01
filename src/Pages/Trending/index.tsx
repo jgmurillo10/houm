@@ -5,7 +5,11 @@ import Card from './../../Components/Card';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { RecipeI } from '../../common/types';
-import { fetchRecipes, selectTrending, selectTrendingStatus } from './../../features/trending/trendingSlice';
+import {
+  fetchRecipes,
+  selectTrending,
+  selectTrendingStatus
+} from './../../features/trending/trendingSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const Trending = () => {
@@ -41,7 +45,11 @@ const Trending = () => {
           </Grid>
           )}
       </Grid>
-      <Button disabled={status === 'loading'} sx={{ mt: 4 }} variant="contained" onClick={() => dispatch(fetchRecipes())}>
+      <Button
+        disabled={status === 'loading'}
+        sx={{ mt: 4, mx: 'auto', display: 'block' }}
+        variant="contained"
+        onClick={() => dispatch(fetchRecipes())}>
         {status === 'idle' ? 'Load more' : 'Loading'}
       </Button>
     </Box>

@@ -22,9 +22,15 @@ const HeroImage = styled('img')(({ theme }) => ({
   }
 }));
 
+const HeroWrapper = styled(Grid)(({ theme })=>({
+  display: 'flex',
+  alignItems: 'center',
+  margin: 0,
+  padding: `${theme.spacing(6)} 0`
+}));
+
 const Hero = ({ title, primary, secondary }: HeroI) => (
-  <Grid
-    sx={{ display: 'flex', alignItems: 'center', my: 6 }}
+  <HeroWrapper
     container
     justifyContent="flex-start"
     rowSpacing={3}
@@ -50,7 +56,7 @@ const Hero = ({ title, primary, secondary }: HeroI) => (
     <Grid item xs={12} md={6}>
       <HeroImage src="/recipe_hero.jpg" alt="Recipe" />
     </Grid>
-  </Grid>
+  </HeroWrapper>
 );
 
 export default Hero;

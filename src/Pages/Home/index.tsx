@@ -7,8 +7,8 @@ import TextField from '@mui/material/TextField';
 import Hero from './../../Components/Hero';
 import Card from './../../Components/Card';
 import axios, { CancelTokenSource } from 'axios';
-import './Home.css';
 import { RecipeI } from '../../common/types';
+import './Home.css';
 //TODO(jgmurillo10): Refactor cards container.
 const config = {
   headers: {
@@ -61,7 +61,7 @@ function Home() {
         primary={{ text: 'Search recipes', url: '#search'}}
         secondary={{ text: 'Explore trending', url: '/trending'}}
       ></Hero>
-      <Box id="search">
+      <Box id="search" sx={{ py: 6 }}>
         <Typography variant="h3" component="h2" gutterBottom>
           Search for recipes
         </Typography>

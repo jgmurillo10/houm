@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Home from './Pages/Home';
 import Menu from './Components/Menu';
+import Footer from './Components/Footer';
 import Trending from './Pages/Trending';
 import Recipe from './Pages/Recipe';
 
@@ -25,6 +26,7 @@ export default function BasicExample() {
             </Routes>
             </Container>
         </Box>
+        <Footer/>
       </div>
     </Router>
   );
