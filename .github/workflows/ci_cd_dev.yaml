@@ -1,0 +1,39 @@
+name: CI/CD Development environment
+on:
+  push:
+    branches:
+    - develop
+  pull_request:
+    branches:
+      - develop
+  repository_dispatch:
+    schedule:
+      - cron: '5 12 * * 0'
+jobs:
+  CI-CD:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install packages
+        run: npm install
+      - name: Install create-react-app
+        run: npm i -g create-react-app
+      - name: Install surge
+        run: npm i -g surge
+      - name: Build
+        run: npm run build
+        env:
+          REACT_APP_RAPID_API_KEY: ${{ secrets.REACT_APP_RAPID_API_KEY }}
+      - name: Test
+        run: npm run test
+      - name: Deploy to houm-juan-dev.surge.sh
+        uses: dswistowski/surge-sh-action@v1
+        with:
+          domain: 'houm-juan-dev.surge.sh'
+          project: './build'
+          login: ${{ secrets.SURGE_LOGIN }}
+          token: ${{ secrets.SURGE_TOKEN }}
