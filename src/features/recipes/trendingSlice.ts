@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { RecipeI } from '../../common/types';
-import fetchRandomRecipes from './trendingAPI';
+import { getRecipes } from './recipesAPI';
 
 export interface TrendingState {
   recipes: Array<RecipeI>;
@@ -16,7 +16,7 @@ const initialState: TrendingState = {
 export const fetchRecipes = createAsyncThunk(
   'trending/fetchRecipes',
   async () => {
-    const response = await fetchRandomRecipes();
+    const response = await getRecipes();
     return response.data.recipes;
   }
 );
@@ -24,30 +24,22 @@ export const fetchRecipes = createAsyncThunk(
 export const trendingSlice = createSlice({
   name: 'trending',
   initialState,
-  reducers: {
-    incrementByAmount: (state, action: PayloadAction<RecipeI>) => {
-      state.recipes.push(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchRecipes.pending, (state) => {
-        console.log('loading')
         state.status = 'loading';
       })
       .addCase(fetchRecipes.fulfilled, (state, action) => {
-        console.log('idle')
         state.status = 'idle';
         state.recipes.push(...action.payload);
       })
       .addCase(fetchRecipes.rejected, (state) => {
-        console.log('failed', state)
         state.status = 'failed';
       });
   },
 });
 
-export const { incrementByAmount } = trendingSlice.actions;
 export const selectTrending = (state: RootState) => state.trending.recipes;
 export const selectTrendingStatus = (state: RootState) => state.trending.status;
 export default trendingSlice.reducer;
