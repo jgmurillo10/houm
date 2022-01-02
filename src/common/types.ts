@@ -25,4 +25,5 @@ export interface SearchParamsI {
   diet: string;
   cuisine: string;
   number: number;
+  offset: number;
 }

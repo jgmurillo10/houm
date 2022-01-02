@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useCallback } from 'react';
+import React, { useEffect, useMemo, useCallback, useRef } from 'react';
 import Typography from '@mui/material/Typography';
 import debounce from 'lodash.debounce';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Pagination from '@mui/material/Pagination';
 import Hero from './../../Components/Hero';
 import Card, { CardLoading } from './../../Components/Card';
 import { ComboBox, CheckboxesTags} from './../../Components/Autocomplete';
@@ -11,25 +12,23 @@ import { RecipeI } from '../../common/types';
 import {
   fetchFilteredRecipes,
   setSearchParams,
+  setPage,
   selectFilteredRecipes,
   selectQueryStatus,
-  selectQueryParams
+  selectQueryParams,
+  selectPagination
 } from '../../features/recipes/querySlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import './Home.css';
 //TODO(jgmurillo10): Refactor cards container.
 
 const PanelSearch = () => {
+  const resultsRef = useRef<HTMLDivElement>(null);
   const recipes = useAppSelector(selectFilteredRecipes);
   const status = useAppSelector(selectQueryStatus);
   const searchParams = useAppSelector(selectQueryParams);
+  const pagination = useAppSelector(selectPagination);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (recipes.length === 0) {
-      dispatch(fetchFilteredRecipes(searchParams))
-    }
-  }, [dispatch, recipes.length, searchParams])
 
   const handleQuery = useCallback(async (params) => {
     dispatch(fetchFilteredRecipes(params));
@@ -45,22 +44,28 @@ const PanelSearch = () => {
     }
   }, [debouncedChangeHandler]);
 
+  useEffect(() => {
+    debouncedChangeHandler(searchParams);
+  }, [searchParams, debouncedChangeHandler]);
+
   const handleDiet = (e: React.SyntheticEvent<Element, Event>, value: {label: string, value: string} | null) => {
     dispatch(setSearchParams({
-      ...searchParams,
       diet: value?.value || '',
     }));
   }
   const handleCuisine = (e: React.SyntheticEvent<Element, Event>, value: string[]) => {
     dispatch(setSearchParams({
-      ...searchParams,
       cuisine: value.join(','),
     }));
   }
 
-  useEffect(() => {
-    debouncedChangeHandler(searchParams);
-  }, [searchParams, debouncedChangeHandler])
+  const handlePaginationChange = (event : React.ChangeEvent<any>, page : number) => {
+    const offset = (page - 1) * searchParams.number;
+
+    dispatch(setSearchParams({ offset }));
+    dispatch(setPage(page));
+    resultsRef.current?.scrollIntoView();
+  }
 
   return (
     <Box id="search" sx={{ py: 6 }}>
@@ -74,42 +79,51 @@ const PanelSearch = () => {
         label="Search recipes"
         variant="outlined"
         value={searchParams.query}
-        onChange={(e) => dispatch(setSearchParams({ ...searchParams, query: e.target.value }))} />
+        onChange={(e) => dispatch(setSearchParams({ query: e.target.value }))} />
       <ComboBox
-        value={{
-          label: searchParams.diet,
-          value: searchParams.diet,
-        }}
+        value={searchParams.diet}
         onChange={handleDiet} />
       <CheckboxesTags
         value={searchParams.cuisine ? searchParams.cuisine.split(',') : []}
         onChange={handleCuisine} />
       <Grid
+        ref={resultsRef}
         container
         justifyContent="flex-start"
         rowSpacing={3}
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
-        {status === 'loading' && [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(_ =>
+        {status === 'loading' ? [1,2,3,4,5,6,7,8,9,10,11,12].map(_ =>
           <Grid key={_} item xs={12} sm={6} md={6} lg={4}>
             <CardLoading />
           </Grid>
-        )}
+        ) :
+          recipes.map((randomRecipe:RecipeI) =>
+            <Grid key={randomRecipe.id} item xs={12} sm={6} md={6} lg={4}>
+              <Card
+                id={randomRecipe.id}
+                title={randomRecipe.title}
+                image={`https://spoonacular.com/recipeImages/${randomRecipe.image}`}
+                summary={randomRecipe.summary}
+              />
+            </Grid>
+          )
+        }
         {status === 'idle' && recipes.length === 0 &&
           <Grid item xs={12} sm={6} md={6} lg={4}>
             <Typography variant="h4" component="h2">No recipes found :(</Typography>
           </Grid>
         }
-        {recipes.map((randomRecipe:RecipeI) =>
-          <Grid key={randomRecipe.id} item xs={12} sm={6} md={6} lg={4}>
-            <Card
-              id={randomRecipe.id}
-              title={randomRecipe.title}
-              image={`https://spoonacular.com/recipeImages/${randomRecipe.image}`}
-              summary={randomRecipe.summary}
-            />
-          </Grid>
-          )}
       </Grid>
+      { recipes.length !== 0 &&
+        <Pagination
+          sx={{ mx: 'auto', my: 2, display: 'flex', justifyContent: 'center' }}
+          onChange={handlePaginationChange}
+          count={Math.min(50, Math.ceil(pagination.totalResults/searchParams.number))}
+          page={pagination.page}
+          siblingCount={2}
+          boundaryCount={3}
+        />
+      }
     </Box>
   );
 };

@@ -7,7 +7,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 type PropsCombo = {
   onChange: (e: React.SyntheticEvent<Element, Event>, value: {label: string, value: string} | null) => void;
-  value: {label: string, value: string} | null;
+  value: string;
 };
 
 export function ComboBox({ onChange, value } : PropsCombo) {
@@ -17,7 +17,10 @@ export function ComboBox({ onChange, value } : PropsCombo) {
       onChange={onChange}
       disablePortal
       options={diets}
-      value={value}
+      value={{
+        label: value,
+        value,
+      }}
       renderInput={(params) => <TextField {...params} label="Diet" />}
     />
   );

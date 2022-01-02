@@ -5,13 +5,13 @@ import { getFilteredRecipes } from './recipesAPI';
 
 export interface PaginationI {
   page: number;
-  totalResults?: number;
+  totalResults: number;
 };
 
 export interface QueryState {
   recipes: Array<RecipeI>;
   status: 'idle' | 'loading' | 'failed';
-  pagination: PaginationI
+  pagination: PaginationI;
   searchParams: SearchParamsI;
 };
 
@@ -22,10 +22,12 @@ const initialState: QueryState = {
     query: '',
     diet: '',
     cuisine: '',
-    number: 9,
+    number: 12,
+    offset: 0,
   },
   pagination: {
-    page: 0,
+    page: 1,
+    totalResults: 12,
   },
 };
 
@@ -42,9 +44,23 @@ export const querySlice = createSlice({
   name: 'query',
   initialState,
   reducers: {
-    setSearchParams: (state, action: PayloadAction<SearchParamsI>) => {
-      state.searchParams = action.payload;
+    setSearchParams: (state, action: PayloadAction<Object>) => {
+      state.searchParams = {
+        ...state.searchParams,
+        ...action.payload,
+        offset: 0,
+      };
+      state.pagination = {
+        ...state.pagination,
+        page: 1,
+      };
     },
+    setPage: (state, action: PayloadAction<number>) => {
+      state.pagination = {
+        ...state.pagination,
+        page: action.payload,
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -56,7 +72,7 @@ export const querySlice = createSlice({
         state.recipes = action.payload.results;
         state.pagination = {
           ...state.pagination,
-          totalResults: action.payload.totalResults
+          totalResults: action.payload.totalResults,
         };
       })
       .addCase(fetchFilteredRecipes.rejected, (state) => {
@@ -65,8 +81,9 @@ export const querySlice = createSlice({
   },
 });
 
-export const { setSearchParams } = querySlice.actions;
+export const { setSearchParams, setPage } = querySlice.actions;
 export const selectFilteredRecipes = (state: RootState) => state.query.recipes;
 export const selectQueryStatus = (state: RootState) => state.query.status;
 export const selectQueryParams = (state: RootState) => state.query.searchParams;
+export const selectPagination = (state: RootState) => state.query.pagination;
 export default querySlice.reducer;

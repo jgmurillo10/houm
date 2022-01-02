@@ -8,6 +8,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import theme from './theme';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
