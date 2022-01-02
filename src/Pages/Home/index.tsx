@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback, useRef, MutableRefObject } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import Typography from '@mui/material/Typography';
 import debounce from 'lodash.debounce';
 import Box from '@mui/material/Box';
@@ -7,55 +7,33 @@ import TextField from '@mui/material/TextField';
 import Hero from './../../Components/Hero';
 import Card, { CardLoading } from './../../Components/Card';
 import { ComboBox, CheckboxesTags} from './../../Components/Autocomplete';
-import axios, { CancelTokenSource } from 'axios';
 import { RecipeI } from '../../common/types';
+import {
+  fetchFilteredRecipes,
+  setSearchParams,
+  selectFilteredRecipes,
+  selectQueryStatus,
+  selectQueryParams
+} from '../../features/recipes/querySlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import './Home.css';
 //TODO(jgmurillo10): Refactor cards container.
-const config = {
-  headers: {
-    'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-    'x-rapidapi-key': process.env.REACT_APP_RAPID_API_KEY || '',
-  }
-}
-
-type SearchParamsI = {
-  query: string;
-  diet?: string;
-  cuisine: string;
-  number: number;
-}
 
 const PanelSearch = () => {
-  const [resultRecipes, setResultRecipes] = useState([]);
-  const [searchParams, setSearchParams] = useState<SearchParamsI>({
-    query: '',
-    diet: '',
-    cuisine: '',
-    number: 9,
-  });
+  const recipes = useAppSelector(selectFilteredRecipes);
+  const status = useAppSelector(selectQueryStatus);
+  const searchParams = useAppSelector(selectQueryParams);
+  const dispatch = useAppDispatch();
 
-  let cancelToken: MutableRefObject<CancelTokenSource> =
-    useRef(axios.CancelToken.source());
-
-  const fetchRecipes = async (params: any, cancelToken:any) => {
-    try {
-      const { data } = await axios.get(
-        `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search`,
-        {...config, params, cancelToken: cancelToken.current.token });
-
-      setResultRecipes(data.results);
-    } catch (e) {
-      console.log(e)
+  useEffect(() => {
+    if (recipes.length === 0) {
+      dispatch(fetchFilteredRecipes(searchParams))
     }
-  }
+  }, [dispatch, recipes.length, searchParams])
+
   const handleQuery = useCallback(async (params) => {
-    if (typeof cancelToken != typeof undefined) {
-      cancelToken.current.cancel("Operation canceled due to new request.")
-    }
-
-    cancelToken.current = axios.CancelToken.source();
-    fetchRecipes(params, cancelToken);
-  }, []);
+    dispatch(fetchFilteredRecipes(params));
+  }, [dispatch]);
 
   const debouncedChangeHandler = useMemo(
     () => debounce(handleQuery, 300)
@@ -68,16 +46,16 @@ const PanelSearch = () => {
   }, [debouncedChangeHandler]);
 
   const handleDiet = (e: React.SyntheticEvent<Element, Event>, value: {label: string, value: string} | null) => {
-    setSearchParams({
+    dispatch(setSearchParams({
       ...searchParams,
-      diet: value?.value,
-    });
+      diet: value?.value || '',
+    }));
   }
   const handleCuisine = (e: React.SyntheticEvent<Element, Event>, value: string[]) => {
-    setSearchParams({
+    dispatch(setSearchParams({
       ...searchParams,
       cuisine: value.join(','),
-    });
+    }));
   }
 
   useEffect(() => {
@@ -96,20 +74,32 @@ const PanelSearch = () => {
         label="Search recipes"
         variant="outlined"
         value={searchParams.query}
-        onChange={(e) => setSearchParams({ ...searchParams, query: e.target.value })} />
-      <ComboBox onChange={handleDiet} />
-      <CheckboxesTags onChange={handleCuisine} />
+        onChange={(e) => dispatch(setSearchParams({ ...searchParams, query: e.target.value }))} />
+      <ComboBox
+        value={{
+          label: searchParams.diet,
+          value: searchParams.diet,
+        }}
+        onChange={handleDiet} />
+      <CheckboxesTags
+        value={searchParams.cuisine ? searchParams.cuisine.split(',') : []}
+        onChange={handleCuisine} />
       <Grid
         container
         justifyContent="flex-start"
         rowSpacing={3}
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
-        {resultRecipes.length === 0 && [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(_ =>
+        {status === 'loading' && [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(_ =>
           <Grid key={_} item xs={12} sm={6} md={6} lg={4}>
             <CardLoading />
           </Grid>
         )}
-        {resultRecipes.map((randomRecipe:RecipeI) =>
+        {status === 'idle' && recipes.length === 0 &&
+          <Grid item xs={12} sm={6} md={6} lg={4}>
+            <Typography variant="h4" component="h2">No recipes found :(</Typography>
+          </Grid>
+        }
+        {recipes.map((randomRecipe:RecipeI) =>
           <Grid key={randomRecipe.id} item xs={12} sm={6} md={6} lg={4}>
             <Card
               id={randomRecipe.id}

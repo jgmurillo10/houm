@@ -7,15 +7,17 @@ import Checkbox from '@mui/material/Checkbox';
 
 type PropsCombo = {
   onChange: (e: React.SyntheticEvent<Element, Event>, value: {label: string, value: string} | null) => void;
+  value: {label: string, value: string} | null;
 };
 
-export function ComboBox({ onChange } : PropsCombo) {
+export function ComboBox({ onChange, value } : PropsCombo) {
   return (
     <Autocomplete
       sx={{ my: 2 }}
       onChange={onChange}
       disablePortal
       options={diets}
+      value={value}
       renderInput={(params) => <TextField {...params} label="Diet" />}
     />
   );
@@ -26,9 +28,10 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 type Props = {
   onChange: (e: React.SyntheticEvent<Element, Event>, value: string[]) => void;
+  value: string[];
 };
 
-export function CheckboxesTags({ onChange }: Props) {
+export function CheckboxesTags({ onChange, value }: Props) {
   return (
     <Autocomplete
       sx={{ my: 2 }}
@@ -37,6 +40,7 @@ export function CheckboxesTags({ onChange }: Props) {
       id="checkboxes-tags-demo"
       options={cuisines}
       disableCloseOnSelect
+      value={value}
       getOptionLabel={(option) => option}
       renderOption={(props, option, { selected }) => (
         <li {...props}>
@@ -57,11 +61,11 @@ export function CheckboxesTags({ onChange }: Props) {
 }
 
 const diets = [
-  { label: 'Pescetarian', value: 'pescetarian' },
-  { label: 'Lacto vegetarian', value: 'lacto vegetarian' },
-  { label: 'Ovo vegetarian', value: 'ovo vegetarian' },
-  { label: 'Vegan', value: 'vegan' },
-  { label: 'Vegetarian', value: 'vegetarian' },
+  { label: 'pescetarian', value: 'pescetarian' },
+  { label: 'lacto vegetarian', value: 'lacto vegetarian' },
+  { label: 'ovo vegetarian', value: 'ovo vegetarian' },
+  { label: 'vegan', value: 'vegan' },
+  { label: 'vegetarian', value: 'vegetarian' },
 ];
 
 const cuisines = [

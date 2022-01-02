@@ -20,3 +20,9 @@ export interface PageI {
   label: string;
   route: string;
 }
+export interface SearchParamsI {
+  query: string;
+  diet: string;
+  cuisine: string;
+  number: number;
+}

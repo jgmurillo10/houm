@@ -9,14 +9,13 @@ import {
   fetchRecipes,
   selectTrending,
   selectTrendingStatus
-} from './../../features/trending/trendingSlice';
+} from '../../features/recipes/trendingSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const Trending = () => {
   const recipes = useAppSelector(selectTrending);
   const status = useAppSelector(selectTrendingStatus);
   const dispatch = useAppDispatch();
-
 
   useEffect(() => {
     if (recipes.length === 0) {
