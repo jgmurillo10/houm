@@ -20,8 +20,9 @@ const initialState: QueryState = {
   status: 'idle',
   searchParams: {
     query: '',
-    diet: '',
-    cuisine: '',
+    diet: null,
+    cuisine: [],
+    type: null,
     number: 12,
     offset: 0,
   },
@@ -34,7 +35,7 @@ const initialState: QueryState = {
 export const fetchFilteredRecipes = createAsyncThunk(
   'query/searchRecipes',
   async (params: SearchParamsI) => {
-    const response = await getFilteredRecipes(params);
+    const response :any = await getFilteredRecipes(params);
 
     return response.data;
   }

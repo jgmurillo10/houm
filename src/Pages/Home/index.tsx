@@ -48,14 +48,9 @@ const PanelSearch = () => {
     debouncedChangeHandler(searchParams);
   }, [searchParams, debouncedChangeHandler]);
 
-  const handleDiet = (e: React.SyntheticEvent<Element, Event>, value: {label: string, value: string} | null) => {
+  const handleAutocomplete = (e: React.SyntheticEvent<Element, Event>, value: {label: string, value: string} | string[] | null, queryParam : string) => {
     dispatch(setSearchParams({
-      diet: value?.value || '',
-    }));
-  }
-  const handleCuisine = (e: React.SyntheticEvent<Element, Event>, value: string[]) => {
-    dispatch(setSearchParams({
-      cuisine: value.join(','),
+      [queryParam]: value,
     }));
   }
 
@@ -81,11 +76,36 @@ const PanelSearch = () => {
         value={searchParams.query}
         onChange={(e) => dispatch(setSearchParams({ query: e.target.value }))} />
       <ComboBox
+        options={[
+          { label: 'pescetarian', value: 'pescetarian' },
+          { label: 'lacto vegetarian', value: 'lacto vegetarian' },
+          { label: 'ovo vegetarian', value: 'ovo vegetarian' },
+          { label: 'vegan', value: 'vegan' },
+          { label: 'vegetarian', value: 'vegetarian' },
+        ]}
+        label="Diet"
         value={searchParams.diet}
-        onChange={handleDiet} />
+        onChange={(event, value) => handleAutocomplete(event, value, 'diet')} />
+      <ComboBox
+        options={[
+          { label: 'main course', value: 'main course' },
+          { label: 'side dish', value: 'side dish' },
+          { label: 'dessert', value: 'dessert' },
+          { label: 'appetizer', value: 'appetizer' },
+          { label: 'salad', value: 'salad' },
+          { label: 'bread', value: 'bread' },
+          { label: 'breakfast', value: 'breakfast' },
+          { label: 'soup', value: 'soup' },
+          { label: 'beverage', value: 'beverage' },
+          { label: 'sauce', value: 'sauce' },
+          { label: 'drink', value: 'drink' },
+        ]}
+        label="Type"
+        value={searchParams.type}
+        onChange={(event, value) => handleAutocomplete(event, value, 'type')} />
       <CheckboxesTags
-        value={searchParams.cuisine ? searchParams.cuisine.split(',') : []}
-        onChange={handleCuisine} />
+        value={searchParams.cuisine}
+        onChange={(event, value) => handleAutocomplete(event, value, 'cuisine')} />
       <Grid
         ref={resultsRef}
         container
@@ -108,7 +128,7 @@ const PanelSearch = () => {
             </Grid>
           )
         }
-        {status === 'idle' && recipes.length === 0 &&
+        {status === 'idle' && pagination.totalResults === 0 &&
           <Grid item xs={12} sm={6} md={6} lg={4}>
             <Typography variant="h4" component="h2">No recipes found :(</Typography>
           </Grid>

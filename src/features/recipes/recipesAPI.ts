@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SearchParamsI } from '../../common/types';
+import { Indexable, OptionI, SearchParamsI } from '../../common/types';
 const baseAPI = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/';
 const randomRecipesEndpoint = `${baseAPI}random?number=6`;
 const searchRecipesEndpoint = `${baseAPI}search`;
@@ -11,8 +11,33 @@ const config = {
   },
 };
 
+const Cleaners : Indexable = {
+  'type': (val: OptionI | null) => val ? val.value : '',
+  'diet': (val: OptionI | null) => val ? val.value : '',
+  'cuisine': (val: string[]) => val.join(','),
+};
+
+const cleanParams = (params : SearchParamsI) => {
+  Object.entries(params).forEach(([key, value]) => {
+    const cleanerFunction = Cleaners[key];
+
+    if (cleanerFunction) {
+      params = {
+        ...params,
+        [key]: cleanerFunction(value),
+      };
+    }
+  });
+
+  return params;
+};
+
 const getRecipes = async () => axios.get(randomRecipesEndpoint, config);
+
 const getFilteredRecipes =
-  async (params : SearchParamsI) => axios.get(searchRecipesEndpoint, {...config, params});
+  async (rawParams : SearchParamsI) => {
+    const params = cleanParams(rawParams);
+    return axios.get(searchRecipesEndpoint, {...config, params })
+  };
 
 export { getRecipes, getFilteredRecipes };

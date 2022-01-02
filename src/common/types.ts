@@ -20,10 +20,21 @@ export interface PageI {
   label: string;
   route: string;
 }
+
+export interface OptionI {
+  label: string;
+  value: string;
+}
+
 export interface SearchParamsI {
   query: string;
-  diet: string;
-  cuisine: string;
+  diet: OptionI | null;
+  cuisine: string[];
+  type: OptionI | null;
   number: number;
   offset: number;
+}
+
+export interface Indexable<T = any> {
+  [key: string]: T;
 }
