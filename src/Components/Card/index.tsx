@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -61,13 +61,17 @@ export function CardLoading({ summary }: { summary?: boolean }) {
 }
 
 export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
+  const [cardImage, setCardImage] = useState(image || fallbackImage);
+  const handleOnError = () => { setCardImage(fallbackImage) };
+
   return (
     <Card>
       <CardActionArea component={Link} to={`/recipes/${id}`}>
         <CardMedia
+          onError={handleOnError}
           component="img"
           height="194"
-          image={image || fallbackImage}
+          image={cardImage}
           alt={title}
         />
         <CardContent>

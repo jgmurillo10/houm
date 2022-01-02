@@ -120,8 +120,8 @@ const PanelSearch = () => {
           onChange={handlePaginationChange}
           count={Math.min(50, Math.ceil(pagination.totalResults/searchParams.number))}
           page={pagination.page}
-          siblingCount={2}
-          boundaryCount={3}
+          siblingCount={1}
+          boundaryCount={1}
         />
       }
     </Box>

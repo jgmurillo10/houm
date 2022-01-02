@@ -44,11 +44,11 @@ export const querySlice = createSlice({
   name: 'query',
   initialState,
   reducers: {
-    setSearchParams: (state, action: PayloadAction<Object>) => {
+    setSearchParams: (state, action: PayloadAction<any>) => {
       state.searchParams = {
         ...state.searchParams,
         ...action.payload,
-        offset: 0,
+        offset: action.payload.offset || 0,
       };
       state.pagination = {
         ...state.pagination,
