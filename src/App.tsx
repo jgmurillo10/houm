@@ -18,7 +18,7 @@ export default function BasicExample() {
       <div>
         <Menu/>
         <Box sx={{ backgroundColor: 'secondary.main' }}>
-          <Container maxWidth="lg">
+          <Container>
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/recipes/:recipeId" element={<Recipe />} />

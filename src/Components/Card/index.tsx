@@ -67,6 +67,7 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
   return (
     <Card>
       <CardActionArea component={Link} to={`/recipes/${id}`}>
+        {/* TODO(jgmurillo10): Add support for lazy loading images. */}
         <CardMedia
           onError={handleOnError}
           component="img"
@@ -78,6 +79,7 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
         <WrappedTitle gutterBottom variant="h5">
           {title}
         </WrappedTitle>
+        {/* TODO(jgmurillo10): Remove sanitize html to avoid security risks. */}
         {summary &&
           <Summary
             variant="body2"

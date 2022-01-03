@@ -37,7 +37,12 @@ const getRecipes = async () => axios.get(randomRecipesEndpoint, config);
 const getFilteredRecipes =
   async (rawParams : SearchParamsI) => {
     const params = cleanParams(rawParams);
+
     return axios.get(searchRecipesEndpoint, {...config, params })
   };
 
-export { getRecipes, getFilteredRecipes };
+const getRecipeInformation = async (recipeId : string) => axios.get(
+  `${baseAPI}${recipeId}/information`, {...config}
+);
+
+export { getRecipes, getFilteredRecipes, getRecipeInformation };
