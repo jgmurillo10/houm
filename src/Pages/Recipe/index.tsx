@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import {
   fetchRecipe,
   fetchRelatedRecipes,
+  resetRecipe,
   selectRecipe,
   selectStatus,
   selectRelatedRecipes,
@@ -35,11 +36,14 @@ const RecipeImage = styled((props => <div {...props}></div>))(({ theme, image } 
     url(${image})
   `,
   backgroundSize: 'cover',
-  borderRadius: '0 0 80px 80px',
+  borderRadius: '0 0 20px 20px',
   margin: '0 -16px',
   [theme.breakpoints.up('sm')]: {
     margin: '0 -24px',
   },
+  [theme.breakpoints.up('md')]: {
+    borderRadius: '0 0 40px 40px',
+  }
 }));
 
 const RecipeHeading = styled(Typography)({
@@ -70,6 +74,10 @@ const Recipe = () => {
       window.scrollTo(0, 0);
       dispatch(fetchRecipe(recipeId));
       dispatch(fetchRelatedRecipes(recipeId));
+    }
+
+    return () => {
+      dispatch(resetRecipe());
     }
   }, [dispatch, recipeId])
 
@@ -121,12 +129,15 @@ const Recipe = () => {
                   </Box>
                 ))}
               </Box>
-              <Box sx={{ p: 3 }}>
-                <Typography variant="h4" component="h2"sx={{ my: 2 }}>
-                  Instructions
-                </Typography>
-                <RecipeList items={recipe.analyzedInstructions[0].steps} />
-              </Box>
+              {
+                recipe.instructions && <Box sx={{ p: 3 }}>
+                  <Typography variant="h4" component="h2"sx={{ my: 2 }}>
+                    Instructions
+                  </Typography>
+                  <RecipeList items={recipe.analyzedInstructions[0].steps} />
+                </Box>
+              }
+
           </Grid>
       </Grid>
       <Typography variant="h4" component="h2" sx={{ my: 2}}>
