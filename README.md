@@ -1,6 +1,35 @@
-# Houm for Studio Ghibli
+# Houm for Cheff
 
-This project is deployed at [https://houm-juan.surge.sh/](https://houm-juan.surge.sh/).
+## Everyone can be chef!
+
+This project is deployed at [https://houm.vercel.app/](https://houm.vercel.app/).
+
+For testing and development purposes the following staging links are available
+- [https://houm-juan.surge.sh/](https://houm-juan.surge.sh/)
+- [https://houm-juan-dev.surge.sh/](https://houm-juan-dev.surge.sh/)
+
+## Features
+- Search and query cooking recipes.
+- Add recipes to favorites list. The list remain persistent on the Local Storage.
+- Debouncing for queries, this means when typing a recipe name the API won't be fired on each key up.
+- Pseudo infinite pagination on trending page.
+- Pagination on home page. While implementing the pagination I realized of a bug in the service. In the last pages the results does not correspond with the expected results.
+- Responsive, mobile first.
+- Handling errors on null/wrong images.
+- CI/CD with Github Actions.
+
+## Nice to have
+Some feature would be really nice but time was limited:
+- Lazy loading for assets.
+- More animation while showing recipes.
+- A real newsletter form.
+- Fav a recipe in the recipe page.
+- Sanitization and cleaning of security risks such as html coming from the backend and reading local storage and parsing to JSON
+- Have a full suite of tests.
+- Add memoization/caching for server request to enhance UX and mitigate costs on the backend/services.
+
+
+## Other stuff
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
