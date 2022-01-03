@@ -19,7 +19,7 @@ const Trending = () => {
   return (
     <Box sx={{ py: 6 }}>
       <Typography variant='h3' component='h2' gutterBottom>
-        Trending
+        Explore
       </Typography>
       <Grid
         container
