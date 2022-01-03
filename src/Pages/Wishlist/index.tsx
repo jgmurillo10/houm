@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { selectRecipes } from '../../features/recipes/wishlistSlice';
-import { useAppSelector } from '../../app/hooks';
+import { setSubtitle } from '../../features/meta/metaSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import Card from './../../Components/Card';
 import { RecipeI } from '../../common/types';
@@ -7,11 +9,19 @@ import { Link } from 'react-router-dom';
 
 const Wishlist = () => {
   const recipes = useAppSelector(selectRecipes);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setSubtitle('Wishlist'));
+  }, [dispatch]);
 
   return (
     <Box sx={{ py: 6 }}>
       <Typography variant='h3' component='h2' gutterBottom>
         Wishlist
+      </Typography>
+      <Typography variant='h4' component='p' sx={{ my: 4 }}>
+        Here are your favorites recipes. Those that you can't wait to cook and enjoy
       </Typography>
       <Grid
         container

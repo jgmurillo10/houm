@@ -9,7 +9,7 @@ const pages = [
     route: '/'
   },
   {
-    label: 'Trending',
+    label: 'Explore',
     route: '/trending'
   },
   {

@@ -1,10 +1,19 @@
+import { useEffect } from 'react';
 import Hero from './../../Components/Hero';
 import PanelSearch from './../../Components/PanelSearch';
+import { setSubtitle } from './../../features/meta/metaSlice';
+import { useAppDispatch } from './../../app/hooks';
 import './Home.css';
 //TODO(jgmurillo10): Refactor cards container.
 
-function Home() {
- return (
+const Home = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setSubtitle('Home'));
+  }, [dispatch]);
+
+  return (
     <>
       <Hero
         title={`Let's cook something together`}

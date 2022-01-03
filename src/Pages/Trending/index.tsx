@@ -3,6 +3,7 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import Card, { CardLoading } from './../../Components/Card';
 import { RecipeI } from '../../common/types';
 import { fetchRecipes, selectTrending, selectTrendingStatus } from '../../features/recipes/trendingSlice';
+import { setSubtitle } from '../../features/meta/metaSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const Trending = () => {
@@ -11,15 +12,22 @@ const Trending = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(setSubtitle('Explore'));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (recipes.length === 0) {
       dispatch(fetchRecipes())
     }
-  }, [dispatch, recipes.length])
+  }, [dispatch, recipes.length]);
 
   return (
     <Box sx={{ py: 6 }}>
       <Typography variant='h3' component='h2' gutterBottom>
         Explore
+      </Typography>
+      <Typography variant='h4' component='p' sx={{ my: 4 }}>
+        Thousands of recipes to explore at your hand.
       </Typography>
       <Grid
         container

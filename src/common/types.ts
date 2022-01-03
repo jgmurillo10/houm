@@ -64,3 +64,10 @@ export interface SearchParamsI {
 export interface Indexable<T = any> {
   [key: string]: T;
 }
+
+export interface MetadataI {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+};

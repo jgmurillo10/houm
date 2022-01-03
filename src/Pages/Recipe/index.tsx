@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { fetchRecipe, fetchRelatedRecipes, resetRecipe, selectRecipe, selectStatus, selectRelatedRecipes } from '../../features/recipes/recipeSlice';
+import { setSubtitle, setImage } from '../../features/meta/metaSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { Box, styled, Typography, Grid, Avatar, Skeleton } from '@mui/material';
@@ -63,6 +64,17 @@ const Recipe = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (recipe) {
+      dispatch(setSubtitle(recipe.title));
+      dispatch(setImage(recipe.image));
+    }
+
+    return () => {
+      dispatch(setImage('https://houm.vercel.app/recipe_hero.jpg'));
+    }
+  }, [dispatch, recipe]);
+
+  useEffect(() => {
     if (recipeId) {
       window.scrollTo(0, 0);
       dispatch(fetchRecipe(recipeId));
@@ -72,7 +84,7 @@ const Recipe = () => {
     return () => {
       dispatch(resetRecipe());
     }
-  }, [dispatch, recipeId])
+  }, [dispatch, recipeId]);
 
   if (status === 'loading' || !recipe) {
     return (
