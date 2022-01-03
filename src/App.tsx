@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,16 +6,22 @@ import {
 } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Home from './Pages/Home';
 import Menu from './Components/Menu';
 import Footer from './Components/Footer';
-import Trending from './Pages/Trending';
-import Recipe from './Pages/Recipe';
+
+const Home = lazy(() => import('./Pages/Home'));
+const Recipe = lazy(() => import('./Pages/Recipe'));
+const Trending = lazy(() => import('./Pages/Trending'));
+const Fallback = (
+  <div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    We are getting ready for you...
+  </div>
+);
 
 export default function BasicExample() {
   return (
     <Router>
-      <div>
+      <Suspense fallback={Fallback}>
         <Menu/>
         <Box sx={{ backgroundColor: 'secondary.main' }}>
           <Container>
@@ -27,7 +33,7 @@ export default function BasicExample() {
             </Container>
         </Box>
         <Footer/>
-      </div>
+      </Suspense>
     </Router>
   );
 }
