@@ -10,7 +10,7 @@ export interface PaginationI {
 const initialState: MetadataI = {
   title: 'Cheff',
   subtitle: 'Home',
-  description: 'Food recipes made easy.',
+  description: 'Food recipes made simple.',
   image: 'https://houm.vercel.app/recipe_hero.jpg',
 };
 
