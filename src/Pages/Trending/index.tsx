@@ -1,15 +1,8 @@
 import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import Card, { CardLoading } from './../../Components/Card';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import { RecipeI } from '../../common/types';
-import {
-  fetchRecipes,
-  selectTrending,
-  selectTrendingStatus
-} from '../../features/recipes/trendingSlice';
+import { fetchRecipes, selectTrending, selectTrendingStatus } from '../../features/recipes/trendingSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const Trending = () => {

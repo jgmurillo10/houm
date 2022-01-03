@@ -1,19 +1,11 @@
 import React, { useEffect, useMemo, useCallback, useRef } from 'react';
 import debounce from 'lodash.debounce';
 import { Pagination, TextField, Grid, Box, Typography } from '@mui/material';
-import { ComboBox, CheckboxesTags} from './../Components/Autocomplete';
-import Card, { CardLoading } from './../Components/Card';
-import { RecipeI } from '../common/types';
-import {
-  fetchFilteredRecipes,
-  setSearchParams,
-  setPage,
-  selectFilteredRecipes,
-  selectQueryStatus,
-  selectQueryParams,
-  selectPagination
-} from '../features/recipes/querySlice';
-import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { ComboBox, CheckboxesTags} from './../../Components/Autocomplete';
+import Card, { CardLoading } from './../../Components/Card';
+import { OptionI, RecipeI } from '../../common/types';
+import { fetchFilteredRecipes, setSearchParams, setPage, selectFilteredRecipes, selectQueryStatus, selectQueryParams, selectPagination } from '../../features/recipes/querySlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const PanelSearch = () => {
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -41,7 +33,7 @@ const PanelSearch = () => {
     debouncedChangeHandler(searchParams);
   }, [searchParams, debouncedChangeHandler]);
 
-  const handleAutocomplete = (e: React.SyntheticEvent<Element, Event>, value: {label: string, value: string} | string[] | null, queryParam : string) => {
+  const handleAutocomplete = (e: React.SyntheticEvent<Element, Event>, value: OptionI | string[] | null, queryParam : string) => {
     dispatch(setSearchParams({
       [queryParam]: value,
     }));

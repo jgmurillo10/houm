@@ -1,7 +1,4 @@
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material';
+import { Button, Grid, Typography, styled } from '@mui/material';
 import { HeroI } from '../../common/types';
 import { Link } from 'react-router-dom';
 

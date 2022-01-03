@@ -1,4 +1,4 @@
-import { Typography, Card, CardMedia, CardContent } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography  } from "@mui/material";
 import { AccessTime, Person } from '@mui/icons-material';
 
 interface PropsInfoRecipeI {
@@ -22,18 +22,18 @@ const Note = ({cookingMinutes,
         alt=""
       />
       <CardContent>
-        {cookingMinutes && <Typography
+        {cookingMinutes !== null ? <Typography
           variant="body2"
           color="text.secondary"
           sx={{display: 'flex', alignItems: 'center', mb: 1 }}>
           <AccessTime sx={{ mr: 1 }} />Cooking: {cookingMinutes} mins
-        </Typography>}
-        {preparationMinutes && <Typography
+        </Typography> : null}
+        {preparationMinutes !== null ? <Typography
           variant="body2"
           color="text.secondary"
           sx={{display: 'flex', alignItems: 'center', mb: 1 }}>
           <AccessTime sx={{ mr: 1 }} />Prep: {preparationMinutes} mins
-        </Typography>}
+        </Typography> : null}
         <Typography
           variant="body2"
           color="text.secondary"

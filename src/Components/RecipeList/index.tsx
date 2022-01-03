@@ -25,14 +25,20 @@ const List = styled('ol')(({ theme }) => ({
   }
 }));
 
-const RecipeList = ({items} : { items: {step : string}[]}) => {
+interface RecipesListI {
+  items: {
+    step : string;
+  }[]
+}
+
+const RecipeList = ({items} : RecipesListI) => {
   return (
     <List>
       {items.map((step, i) => (
         <li key={i}>{step.step}</li>
       ))}
     </List>
-  )
+  );
 }
 
 export default RecipeList;

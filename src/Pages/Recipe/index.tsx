@@ -1,12 +1,5 @@
 import { useParams } from "react-router-dom";
-import {
-  fetchRecipe,
-  fetchRelatedRecipes,
-  resetRecipe,
-  selectRecipe,
-  selectStatus,
-  selectRelatedRecipes,
-} from '../../features/recipes/recipeSlice';
+import { fetchRecipe, fetchRelatedRecipes, resetRecipe, selectRecipe, selectStatus, selectRelatedRecipes } from '../../features/recipes/recipeSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from "react";
 import { Box, styled, Typography, Grid, Avatar, Skeleton } from "@mui/material";
