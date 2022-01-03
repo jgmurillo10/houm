@@ -6,6 +6,7 @@ import Card, { CardSkeleton } from './../../Components/Card';
 import { OptionI, RecipeI } from '../../common/types';
 import { fetchFilteredRecipes, setSearchParams, setPage, selectFilteredRecipes, selectQueryStatus, selectQueryParams, selectPagination } from '../../store/recipes/querySlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useLocation } from "react-router-dom";
 
 const PanelSearch = () => {
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -14,6 +15,7 @@ const PanelSearch = () => {
   const searchParams = useAppSelector(selectQueryParams);
   const pagination = useAppSelector(selectPagination);
   const dispatch = useAppDispatch();
+  const { hash } = useLocation();
 
   const handleQuery = useCallback(async (params) => {
     dispatch(fetchFilteredRecipes(params));
@@ -22,6 +24,14 @@ const PanelSearch = () => {
   const debouncedChangeHandler = useMemo(
     () => debounce(handleQuery, 300)
   , [handleQuery]);
+
+  useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+
+      el?.scrollIntoView();
+    }
+  }, [hash]);
 
   useEffect(() => {
     return () => {

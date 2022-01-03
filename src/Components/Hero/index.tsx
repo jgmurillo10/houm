@@ -37,8 +37,9 @@ const Hero = ({ title, primary, secondary }: HeroI) => (
         {title}
       </Typography>
       <Button
+        component={Link}
         sx={{ mr: 4, mb: 2}}
-        href={primary.url}
+        to={primary.url}
         variant='contained'>
         {primary.text}
       </Button>
