@@ -22,13 +22,13 @@ const Note = ({cookingMinutes,
         alt=''
       />
       <CardContent>
-        {cookingMinutes !== null ? <Typography
+        {cookingMinutes ? <Typography
           variant='body2'
           color='text.secondary'
           sx={{display: 'flex', alignItems: 'center', mb: 1 }}>
           <AccessTime sx={{ mr: 1 }} />Cooking: {cookingMinutes} mins
         </Typography> : null}
-        {preparationMinutes !== null ? <Typography
+        {preparationMinutes ? <Typography
           variant='body2'
           color='text.secondary'
           sx={{display: 'flex', alignItems: 'center', mb: 1 }}>
