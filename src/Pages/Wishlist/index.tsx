@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { selectRecipes } from '../../features/recipes/wishlistSlice';
-import { setSubtitle } from '../../features/meta/metaSlice';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { selectRecipes } from '../../store/recipes/wishlistSlice';
+import { setSubtitle } from '../../store/meta/metaSlice';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import Card from './../../Components/Card';
 import { RecipeI } from '../../common/types';

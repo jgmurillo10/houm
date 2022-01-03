@@ -4,8 +4,8 @@ import { Pagination, TextField, Grid, Box, Typography } from '@mui/material';
 import { ComboBox, CheckboxesTags} from './../../Components/Autocomplete';
 import Card, { CardLoading } from './../../Components/Card';
 import { OptionI, RecipeI } from '../../common/types';
-import { fetchFilteredRecipes, setSearchParams, setPage, selectFilteredRecipes, selectQueryStatus, selectQueryParams, selectPagination } from '../../features/recipes/querySlice';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchFilteredRecipes, setSearchParams, setPage, selectFilteredRecipes, selectQueryStatus, selectQueryParams, selectPagination } from '../../store/recipes/querySlice';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 
 const PanelSearch = () => {
   const resultsRef = useRef<HTMLDivElement>(null);

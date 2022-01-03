@@ -19,6 +19,7 @@ For testing and development purposes the following staging links are available
 - Gitflow with main and develop branches with their corresponding staging links environments.
 - CI/CD with Github Actions.
 - Fav a recipe in the recipe page.
+- Error handling.
 
 ## Nice to have
 Some features would be really nice but time was limited:

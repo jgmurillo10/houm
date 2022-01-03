@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import Hero from './../../Components/Hero';
 import PanelSearch from './../../Components/PanelSearch';
-import { setSubtitle } from './../../features/meta/metaSlice';
-import { useAppDispatch } from './../../app/hooks';
+import { setSubtitle } from '../../store/meta/metaSlice';
+import { useAppDispatch } from '../../store/hooks';
 import './Home.css';
 //TODO(jgmurillo10): Refactor cards container.
 

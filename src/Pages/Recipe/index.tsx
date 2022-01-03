@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { toggleWishList, selectRecipes } from '../../features/recipes/wishlistSlice';
-import { fetchRecipe, fetchRelatedRecipes, resetRecipe, selectRecipe, selectStatus, selectRelatedRecipes } from '../../features/recipes/recipeSlice';
-import { setSubtitle, setImage } from '../../features/meta/metaSlice';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { toggleWishList, selectRecipes } from '../../store/recipes/wishlistSlice';
+import { fetchRecipe, fetchRelatedRecipes, resetRecipe, selectRecipe, selectStatus, selectRelatedRecipes } from '../../store/recipes/recipeSlice';
+import { setSubtitle, setImage } from '../../store/meta/metaSlice';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useEffect } from 'react';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { Box, Fab, styled, Typography, Grid, Avatar, Skeleton } from '@mui/material';

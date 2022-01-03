@@ -3,8 +3,8 @@ import { Alert, Button, Card, CardActionArea, CardActions, CardContent, CardMedi
 import { RecipeI } from '../../common/types';
 import { Link } from 'react-router-dom';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
-import { toggleWishList, selectRecipes } from '../../features/recipes/wishlistSlice';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { toggleWishList, selectRecipes } from '../../store/recipes/wishlistSlice';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 
 const fallbackImage = 'https://spoonacular.com/recipeImages/18079-240x150.jpg';
 

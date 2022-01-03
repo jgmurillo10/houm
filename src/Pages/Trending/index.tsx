@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import Card, { CardLoading } from './../../Components/Card';
 import { RecipeI } from '../../common/types';
-import { fetchRecipes, selectTrending, selectTrendingStatus } from '../../features/recipes/trendingSlice';
-import { setSubtitle } from '../../features/meta/metaSlice';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { fetchRecipes, selectTrending, selectTrendingStatus } from '../../store/recipes/trendingSlice';
+import { setSubtitle } from '../../store/meta/metaSlice';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 
 const Trending = () => {
   const recipes = useAppSelector(selectTrending);
