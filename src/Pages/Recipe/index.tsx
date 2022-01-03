@@ -6,7 +6,7 @@ import {
 } from '../../features/recipes/recipeSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from "react";
-import { Box, styled, Typography, Grid, Avatar } from "@mui/material";
+import { Box, styled, Typography, Grid, Avatar, Skeleton } from "@mui/material";
 import { RecipeExtendedI } from "../../common/types";
 import Note from './../../Components/Note';
 import RecipeList from './../../Components/RecipeList';
@@ -68,7 +68,12 @@ const Recipe = () => {
   }, [dispatch, recipeId])
 
   if (status === 'loading' || !recipe) {
-    return (<h1>Loading...</h1>)
+    return (
+      <>
+        <Skeleton sx={{ height: 500 }} animation="wave" variant="rectangular" />
+        <Skeleton sx={{ height: 900, mt: 8 }} animation="wave" variant="rectangular" />
+      </>
+    );
   }
 
   return (
