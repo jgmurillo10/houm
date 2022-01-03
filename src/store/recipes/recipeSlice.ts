@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
+import { RootState } from '../../store/store';
 import { RecipeI } from '../../common/types';
 import { getRecipeInformation, getRelatedRecipes } from './recipesAPI';
 

@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
-import { store } from './app/store';
+import { store } from './store/store';
 import { Provider } from 'react-redux';
 import theme from './theme';
 import './index.css';
