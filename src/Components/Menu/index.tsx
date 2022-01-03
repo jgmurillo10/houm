@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const pages = [
   {
@@ -26,13 +26,13 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position='static'>
       <Container>
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="div"
+            component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
             Cheff
@@ -40,17 +40,17 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color='inherit'
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -72,7 +72,7 @@ const ResponsiveAppBar = () => {
                   key={page.label}
                   onClick={handleCloseNavMenu}
                   component={Link} to={page.route}>
-                  <Typography textAlign="center">
+                  <Typography textAlign='center'>
                     {page.label}
                   </Typography>
                 </MenuItem>
@@ -80,9 +80,9 @@ const ResponsiveAppBar = () => {
             </Menu>
           </Box>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="div"
+            component='div'
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, ml: { xs: '-48px', md: 0 } }}
           >
             Cheff

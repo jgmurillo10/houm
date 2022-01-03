@@ -18,12 +18,12 @@ const Trending = () => {
 
   return (
     <Box sx={{ py: 6 }}>
-      <Typography variant="h3" component="h2" gutterBottom>
+      <Typography variant='h3' component='h2' gutterBottom>
         Trending
       </Typography>
       <Grid
         container
-        justifyContent="flex-start"
+        justifyContent='flex-start'
         rowSpacing={3}
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
         {recipes.map((recipe:RecipeI) =>
@@ -45,7 +45,7 @@ const Trending = () => {
       <Button
         disabled={status === 'loading'}
         sx={{ mt: 4, mx: 'auto', display: 'block' }}
-        variant="contained"
+        variant='contained'
         onClick={() => dispatch(fetchRecipes())}>
         {status === 'idle' ? 'Load more' : 'Loading'}
       </Button>

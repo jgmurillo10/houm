@@ -4,8 +4,8 @@ import { CheckBox, CheckBoxOutlineBlank } from '@mui/icons-material';
 import { OptionI } from '../../common/types';
 
 
-const icon = <CheckBoxOutlineBlank fontSize="small" />;
-const checkedIcon = <CheckBox fontSize="small" />;
+const icon = <CheckBoxOutlineBlank fontSize='small' />;
+const checkedIcon = <CheckBox fontSize='small' />;
 
 type PropsCombo = {
   onChange: (e: React.SyntheticEvent<Element, Event>, value: {label: string, value: string} | null) => void;
@@ -41,7 +41,7 @@ export function CheckboxesTags({ onChange, value }: Props) {
       sx={{ my: 2 }}
       multiple
       onChange={onChange}
-      id="checkboxes-tags-demo"
+      id='checkboxes-tags-demo'
       options={cuisines}
       disableCloseOnSelect
       value={value}
@@ -58,7 +58,7 @@ export function CheckboxesTags({ onChange, value }: Props) {
         </li>
       )}
       renderInput={(params) => (
-        <TextField {...params} label="Cuisine" placeholder="Favorites" />
+        <TextField {...params} label='Cuisine' placeholder='Favorites' />
       )}
     />
   );

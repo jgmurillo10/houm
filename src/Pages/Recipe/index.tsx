@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { fetchRecipe, fetchRelatedRecipes, resetRecipe, selectRecipe, selectStatus, selectRelatedRecipes } from '../../features/recipes/recipeSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { useEffect } from "react";
-import { Box, styled, Typography, Grid, Avatar, Skeleton } from "@mui/material";
-import { RecipeExtendedI, RecipeI } from "../../common/types";
+import { useEffect } from 'react';
+import { Box, styled, Typography, Grid, Avatar, Skeleton } from '@mui/material';
+import { RecipeExtendedI, RecipeI } from '../../common/types';
 import Note from './../../Components/Note';
 import Card from './../../Components/Card';
 import RecipeList from './../../Components/RecipeList';
@@ -77,8 +77,8 @@ const Recipe = () => {
   if (status === 'loading' || !recipe) {
     return (
       <>
-        <Skeleton sx={{ height: 500 }} animation="wave" variant="rectangular" />
-        <Skeleton sx={{ height: 900, mt: 8 }} animation="wave" variant="rectangular" />
+        <Skeleton sx={{ height: 500 }} animation='wave' variant='rectangular' />
+        <Skeleton sx={{ height: 900, mt: 8 }} animation='wave' variant='rectangular' />
       </>
     );
   }
@@ -87,14 +87,14 @@ const Recipe = () => {
     <Box sx={{ pb: 8 }}>
       <RecipeImage image={recipe.image} />
       <div style={{ position: 'relative' }}>
-        <RecipeHeading variant="h3">
+        <RecipeHeading variant='h3'>
           {recipe.title}
         </RecipeHeading>
       </div>
 
       <Grid
         container
-        justifyContent="flex-start"
+        justifyContent='flex-start'
         rowSpacing={3}
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
           <Grid item xs={12} sm={12} md={4} lg={4}>
@@ -109,7 +109,7 @@ const Recipe = () => {
               {/* TODO(jgmurillo10): Remove sanitize html to avoid security risks. */}
               <RecipeDescription dangerouslySetInnerHTML={{__html: recipe.summary}} sx={{ my: 4 }} />
               <Box sx={{ p: 3 }}>
-                <Typography variant="h4" component="h2" sx={{ my: 2}}>
+                <Typography variant='h4' component='h2' sx={{ my: 2}}>
                   Ingredients
                 </Typography>
                 {recipe.extendedIngredients.map((ingredient:any, i:number) => (
@@ -124,7 +124,7 @@ const Recipe = () => {
               </Box>
               {
                 recipe.instructions && <Box sx={{ p: 3 }}>
-                  <Typography variant="h4" component="h2"sx={{ my: 2 }}>
+                  <Typography variant='h4' component='h2'sx={{ my: 2 }}>
                     Instructions
                   </Typography>
                   <RecipeList items={recipe.analyzedInstructions[0].steps} />
@@ -133,12 +133,12 @@ const Recipe = () => {
 
           </Grid>
       </Grid>
-      <Typography variant="h4" component="h2" sx={{ my: 2}}>
+      <Typography variant='h4' component='h2' sx={{ my: 2}}>
         Related recipes
       </Typography>
       <Grid
         container
-        justifyContent="flex-start"
+        justifyContent='flex-start'
         rowSpacing={3}
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
           {relatedRecipes.map((randomRecipe:RecipeI) =>

@@ -24,29 +24,29 @@ const Footer = () => {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
         <ModalWrapper>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
             Subscribe
           </Typography>
-          <Typography id="modal-modal-description" sx={{ my: 2 }}>
+          <Typography id='modal-modal-description' sx={{ my: 2 }}>
             Fill out this form to keep up to date.
           </Typography>
-          <Button variant="contained" onClick={handleClose}>Close</Button>
+          <Button variant='contained' onClick={handleClose}>Close</Button>
         </ModalWrapper>
       </Modal>
-      <Typography variant="overline" component="h3" gutterBottom>
+      <Typography variant='overline' component='h3' gutterBottom>
         Keep up to date with trending recipes, new features and discounts!
       </Typography>
-      <Typography variant="h3" component="h2" gutterBottom>
+      <Typography variant='h3' component='h2' gutterBottom>
         Subscribe to our newsletter
       </Typography>
       <Button
         sx={{ mr: 4, mb: 2}}
         onClick={handleOpen}
-        variant="contained">
+        variant='contained'>
         I'm in
       </Button>
     </FooterWrapper>

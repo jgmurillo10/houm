@@ -48,16 +48,16 @@ const PanelSearch = () => {
   }
 
   return (
-    <Box id="search" sx={{ py: 6 }}>
-      <Typography variant="h3" component="h2" gutterBottom>
+    <Box id='search' sx={{ py: 6 }}>
+      <Typography variant='h3' component='h2' gutterBottom>
         Search for recipes
       </Typography>
       <TextField
         sx={{ my: 2 }}
         fullWidth
-        id="outlined-basic"
-        label="Search recipes"
-        variant="outlined"
+        id='outlined-basic'
+        label='Search recipes'
+        variant='outlined'
         value={searchParams.query}
         onChange={(e) => dispatch(setSearchParams({ query: e.target.value }))} />
       <ComboBox
@@ -68,7 +68,7 @@ const PanelSearch = () => {
           { label: 'vegan', value: 'vegan' },
           { label: 'vegetarian', value: 'vegetarian' },
         ]}
-        label="Diet"
+        label='Diet'
         value={searchParams.diet}
         onChange={(event, value) => handleAutocomplete(event, value, 'diet')} />
       <ComboBox
@@ -85,7 +85,7 @@ const PanelSearch = () => {
           { label: 'sauce', value: 'sauce' },
           { label: 'drink', value: 'drink' },
         ]}
-        label="Type"
+        label='Type'
         value={searchParams.type}
         onChange={(event, value) => handleAutocomplete(event, value, 'type')} />
       <CheckboxesTags
@@ -94,7 +94,7 @@ const PanelSearch = () => {
       <Grid
         ref={resultsRef}
         container
-        justifyContent="flex-start"
+        justifyContent='flex-start'
         rowSpacing={3}
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
         {status === 'loading' ? [1,2,3,4,5,6,7,8,9,10,11,12].map(_ =>
@@ -115,7 +115,7 @@ const PanelSearch = () => {
         }
         {status === 'idle' && pagination.totalResults === 0 &&
           <Grid item xs={12} sm={6} md={6} lg={4}>
-            <Typography variant="h4" component="h2">No recipes found :(</Typography>
+            <Typography variant='h4' component='h2'>No recipes found :(</Typography>
           </Grid>
         }
       </Grid>

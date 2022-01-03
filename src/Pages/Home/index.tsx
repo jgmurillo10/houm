@@ -7,7 +7,7 @@ function Home() {
  return (
     <>
       <Hero
-        title="Let's cook something together"
+        title={`Let's cook something together`}
         primary={{ text: 'Search recipes', url: '#search' }}
         secondary={{ text: 'Explore trending', url: '/trending' }}
       ></Hero>

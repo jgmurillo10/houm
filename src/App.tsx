@@ -1,9 +1,9 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route
-} from "react-router-dom";
+} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Menu from './Components/Menu';
@@ -26,9 +26,9 @@ export default function BasicExample() {
         <Box sx={{ backgroundColor: 'secondary.main' }}>
           <Container>
             <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/recipes/:recipeId" element={<Recipe />} />
-              <Route path="/trending" element={<Trending />}></Route>
+              <Route path='/' element={<Home />}></Route>
+              <Route path='/recipes/:recipeId' element={<Recipe />} />
+              <Route path='/trending' element={<Trending />}></Route>
             </Routes>
             </Container>
         </Box>

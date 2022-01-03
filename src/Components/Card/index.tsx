@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Skeleton, Typography } from '@mui/material';
 import { RecipeI } from '../../common/types';
 import { styled } from '@mui/material';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const fallbackImage = 'https://spoonacular.com/recipeImages/18079-240x150.jpg';
 
@@ -29,16 +29,16 @@ const Summary = styled(Typography)({
 export function CardLoading({ summary }: { summary?: boolean }) {
   return (
     <Card sx={{ height: summary ? 462 : 322 }}>
-      <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+      <Skeleton sx={{ height: 190 }} animation='wave' variant='rectangular' />
       <CardContent>
         <React.Fragment>
-          <Typography sx={{ mb: 1 }} component="div" variant="h5">
+          <Typography sx={{ mb: 1 }} component='div' variant='h5'>
             <Skeleton />
           </Typography>
           {summary &&
             <>
-              {[0,1,2,3,4].map(i => <Skeleton key={i} animation="wave" height={10} style={{ marginBottom: 6 }} />)}
-              <Skeleton animation="wave" height={10} width="80%" />
+              {[0,1,2,3,4].map(i => <Skeleton key={i} animation='wave' height={10} style={{ marginBottom: 6 }} />)}
+              <Skeleton animation='wave' height={10} width='80%' />
             </>
           }
         </React.Fragment>
@@ -57,21 +57,21 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
         {/* TODO(jgmurillo10): Add support for lazy loading images. */}
         {image && <CardMedia
           onError={handleOnError}
-          component="img"
-          height="194"
+          component='img'
+          height='194'
           image={cardImage}
           alt={title}
         />}
 
         <CardContent>
-        <WrappedTitle gutterBottom variant="h5">
+        <WrappedTitle gutterBottom variant='h5'>
           {title}
         </WrappedTitle>
         {/* TODO(jgmurillo10): Remove sanitize html to avoid security risks. */}
         {summary &&
           <Summary
-            variant="body2"
-            color="text.secondary"
+            variant='body2'
+            color='text.secondary'
             dangerouslySetInnerHTML={{__html: summary}}>
           </Summary>
         }
@@ -79,7 +79,7 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
       </CardActionArea>
       <CardActions disableSpacing>
         {/* TODO(jgmurillo10): Implement wishlist. */}
-        {/* <IconButton aria-label="add to favorites">
+        {/* <IconButton aria-label='add to favorites'>
           <FavoriteIcon />
         </IconButton> */}
         <Button component={Link} to={`/recipes/${id}`}>Learn More</Button>
