@@ -1,6 +1,6 @@
 # Houm for Cheff
 
-## Everyone can be chef!
+## Everyone can be a chef!
 
 This project is deployed at [https://houm.vercel.app/](https://houm.vercel.app/).
 
@@ -16,10 +16,11 @@ For testing and development purposes the following staging links are available
 - Pagination on home page. While implementing the pagination I realized of a bug in the service. In the last pages the results does not correspond with the expected results.
 - Responsive, mobile first.
 - Handling errors on null/wrong images.
+- Gitflow with main and develop branches with their corresponding staging links environments.
 - CI/CD with Github Actions.
 
 ## Nice to have
-Some feature would be really nice but time was limited:
+Some features would be really nice but time was limited:
 - Lazy loading for assets.
 - More animation while showing recipes.
 - A real newsletter form.
