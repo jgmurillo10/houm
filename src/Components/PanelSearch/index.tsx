@@ -16,7 +16,9 @@ const PanelSearch = () => {
   const dispatch = useAppDispatch();
 
   const handleQuery = useCallback(async (params) => {
-    dispatch(fetchFilteredRecipes(params));
+    if (searchParams !== params) {
+      dispatch(fetchFilteredRecipes(params));
+    }
   }, [dispatch]);
 
   const debouncedChangeHandler = useMemo(

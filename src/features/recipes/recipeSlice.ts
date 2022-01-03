@@ -48,7 +48,6 @@ export const recipeSlice = createSlice({
       })
       .addCase(fetchRecipe.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.recipe = action.payload;
       })
       .addCase(fetchRecipe.rejected, (state) => {
@@ -59,7 +58,6 @@ export const recipeSlice = createSlice({
       })
       .addCase(fetchRelatedRecipes.fulfilled, (state, action) => {
         state.status = 'idle';
-        console.log(action.payload)
         state.related = action.payload;
       })
       .addCase(fetchRelatedRecipes.rejected, (state) => {
