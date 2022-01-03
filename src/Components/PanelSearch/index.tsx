@@ -133,7 +133,7 @@ const PanelSearch = () => {
         <Pagination
           sx={{ mx: 'auto', my: 2, display: 'flex', justifyContent: 'center' }}
           onChange={handlePaginationChange}
-          count={Math.min(50, Math.ceil(pagination.totalResults/searchParams.number))}
+          count={Math.min(50, Math.abs(Math.ceil(pagination.totalResults/searchParams.number) - 2))}
           page={pagination.page}
           siblingCount={1}
           boundaryCount={1}

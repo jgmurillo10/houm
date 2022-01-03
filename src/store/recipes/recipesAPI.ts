@@ -3,12 +3,6 @@ import { Indexable, OptionI, SearchParamsI } from '../../common/types';
 const baseAPI = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/';
 const randomRecipesEndpoint = `${baseAPI}random?number=6`;
 const searchRecipesEndpoint = `${baseAPI}search`;
-/**
- * TODO(jgmurillo10): There's an issue in the API with the pagination. On the
- * last pages, when the offset is near the limit, the totalResults is not
- * consistent with the query, causing an error on the nunmber of pages.
- * Sometimes even returns no results at all.
- */
 const config = {
   headers: {
     'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
