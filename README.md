@@ -30,6 +30,9 @@ Some features would be really nice but time was limited:
 - Have a full suite of tests.
 - Add memoization/caching for server request to enhance UX and mitigate costs on the backend/services.
 - Abstract cards container and other reusable components.
+- More resilience.
+  - Retry request functionality.
+  - Handle errors from the server.
 
 
 ## Other stuff
