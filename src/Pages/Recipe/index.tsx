@@ -1,14 +1,17 @@
 import { useParams } from "react-router-dom";
 import {
   fetchRecipe,
+  fetchRelatedRecipes,
   selectRecipe,
   selectStatus,
+  selectRelatedRecipes,
 } from '../../features/recipes/recipeSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from "react";
 import { Box, styled, Typography, Grid, Avatar, Skeleton } from "@mui/material";
-import { RecipeExtendedI } from "../../common/types";
+import { RecipeExtendedI, RecipeI } from "../../common/types";
 import Note from './../../Components/Note';
+import Card from './../../Components/Card';
 import RecipeList from './../../Components/RecipeList';
 
 interface Props {
@@ -59,11 +62,14 @@ const Recipe = () => {
   const { recipeId } = useParams();
   const recipe = useAppSelector(selectRecipe) as RecipeExtendedI;
   const status = useAppSelector(selectStatus);
+  const relatedRecipes = useAppSelector(selectRelatedRecipes);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (recipeId) {
-      dispatch(fetchRecipe(recipeId))
+      window.scrollTo(0, 0);
+      dispatch(fetchRecipe(recipeId));
+      dispatch(fetchRelatedRecipes(recipeId));
     }
   }, [dispatch, recipeId])
 
@@ -77,7 +83,7 @@ const Recipe = () => {
   }
 
   return (
-    <Box>
+    <Box sx={{ pb: 8 }}>
       <RecipeImage image={recipe.image} />
       <div style={{ position: 'relative' }}>
         <RecipeHeading variant="h3">
@@ -122,6 +128,24 @@ const Recipe = () => {
                 <RecipeList items={recipe.analyzedInstructions[0].steps} />
               </Box>
           </Grid>
+      </Grid>
+      <Typography variant="h4" component="h2" sx={{ my: 2}}>
+        Related recipes
+      </Typography>
+      <Grid
+        container
+        justifyContent="flex-start"
+        rowSpacing={3}
+        columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
+          {relatedRecipes.map((randomRecipe:RecipeI) =>
+            <Grid key={randomRecipe.id} item xs={12} sm={6} md={6} lg={4}>
+              <Card
+                id={randomRecipe.id}
+                title={randomRecipe.title}
+                summary={randomRecipe.summary}
+              />
+            </Grid>
+          )}
       </Grid>
     </Box>
   );

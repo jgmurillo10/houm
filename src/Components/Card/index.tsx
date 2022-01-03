@@ -15,10 +15,6 @@ import { Link } from "react-router-dom";
 
 const fallbackImage = 'https://spoonacular.com/recipeImages/18079-240x150.jpg';
 
-const RightAlignedButton = styled(Button)({
-  marginLeft: "auto"
-});
-
 const WrappedTitle = styled(Typography)({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
@@ -68,13 +64,14 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
     <Card>
       <CardActionArea component={Link} to={`/recipes/${id}`}>
         {/* TODO(jgmurillo10): Add support for lazy loading images. */}
-        <CardMedia
+        {image && <CardMedia
           onError={handleOnError}
           component="img"
           height="194"
           image={cardImage}
           alt={title}
-        />
+        />}
+
         <CardContent>
         <WrappedTitle gutterBottom variant="h5">
           {title}
@@ -90,10 +87,11 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        {/* TODO(jgmurillo10): Implement wishlist. */}
+        {/* <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-        </IconButton>
-        <RightAlignedButton size="small">Learn More</RightAlignedButton>
+        </IconButton> */}
+        <Button component={Link} to={`/recipes/${id}`}>Learn More</Button>
       </CardActions>
     </Card>
   );

@@ -45,4 +45,8 @@ const getRecipeInformation = async (recipeId : string) => axios.get(
   `${baseAPI}${recipeId}/information`, {...config}
 );
 
-export { getRecipes, getFilteredRecipes, getRecipeInformation };
+const getRelatedRecipes = async (recipeId : string) => axios.get(
+  `${baseAPI}${recipeId}/similar`, {...config}
+);
+
+export { getRecipes, getFilteredRecipes, getRecipeInformation, getRelatedRecipes };
