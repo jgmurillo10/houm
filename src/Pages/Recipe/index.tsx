@@ -64,7 +64,7 @@ const FavButton = styled(Box)(({ theme }) => ({
     right: '50%',
     bottom: 'unset',
     top: '50%',
-    transform: 'translate(calc(-50% + 600px), calc(-50% - 100px))'
+    transform: 'translate(calc(-50% + 600px), -50%)'
   }
 }));
 
