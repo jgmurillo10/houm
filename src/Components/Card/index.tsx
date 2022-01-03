@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Skeleton, Typography } from '@mui/material';
+import { Alert, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, IconButton, Skeleton, Snackbar, Typography, styled } from '@mui/material';
 import { RecipeI } from '../../common/types';
-import { styled } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { toggleWishList, selectRecipes } from '../../features/recipes/wishlistSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 const fallbackImage = 'https://spoonacular.com/recipeImages/18079-240x150.jpg';
 
@@ -48,8 +50,21 @@ export function CardLoading({ summary }: { summary?: boolean }) {
 }
 
 export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
+  const dispatch = useAppDispatch();
+  const favoriteRecipes = useAppSelector(selectRecipes);
   const [cardImage, setCardImage] = useState(image || fallbackImage);
+  const [open, setOpen] = useState(false);
+  const faved = favoriteRecipes.find((recipe) => recipe.id === id);
   const handleOnError = () => { setCardImage(fallbackImage) };
+
+  const handleAdd = () => {
+    if (!faved) setOpen(true);
+    dispatch(toggleWishList({id, title, image, summary}));
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card>
@@ -78,12 +93,16 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        {/* TODO(jgmurillo10): Implement wishlist. */}
-        {/* <IconButton aria-label='add to favorites'>
-          <FavoriteIcon />
-        </IconButton> */}
+        <IconButton aria-label='add to favorites' onClick={handleAdd}>
+          {faved ? <Favorite /> : <FavoriteBorder /> }
+        </IconButton>
         <Button component={Link} to={`/recipes/${id}`}>Learn More</Button>
       </CardActions>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Recipe added to favorites!
+        </Alert>
+      </Snackbar>
     </Card>
   );
 }

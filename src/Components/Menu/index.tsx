@@ -12,6 +12,10 @@ const pages = [
     label: 'Trending',
     route: '/trending'
   },
+  {
+    label: 'Wishlist',
+    route: '/wishlist'
+  },
 ];
 
 const ResponsiveAppBar = () => {

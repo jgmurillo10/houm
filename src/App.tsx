@@ -12,6 +12,8 @@ import Footer from './Components/Footer';
 const Home = lazy(() => import('./Pages/Home'));
 const Recipe = lazy(() => import('./Pages/Recipe'));
 const Trending = lazy(() => import('./Pages/Trending'));
+const Wishlist = lazy(() => import('./Pages/Wishlist'));
+
 const Fallback = (
   <div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
     We are getting ready for you...
@@ -29,6 +31,7 @@ export default function BasicExample() {
               <Route path='/' element={<Home />}></Route>
               <Route path='/recipes/:recipeId' element={<Recipe />} />
               <Route path='/trending' element={<Trending />}></Route>
+              <Route path='/wishlist' element={<Wishlist />}></Route>
             </Routes>
             </Container>
         </Box>
