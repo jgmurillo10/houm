@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import Card, { CardLoading } from './../../Components/Card';
+import Card, { CardSkeleton } from './../../Components/Card';
 import { RecipeI } from '../../common/types';
 import { fetchRecipes, selectTrending, selectTrendingStatus } from '../../store/recipes/trendingSlice';
 import { setSubtitle } from '../../store/meta/metaSlice';
@@ -46,7 +46,7 @@ const Trending = () => {
           )}
         {status === 'loading' && [0,1,2,3,4,5,6,7,8].map((i) => (
           <Grid key={i} item xs={12} sm={6} md={6} lg={4}>
-           <CardLoading summary />
+           <CardSkeleton summary />
          </Grid>
         ))}
       </Grid>

@@ -20,10 +20,10 @@ For testing and development purposes the following staging links are available
 - CI/CD with Github Actions.
 - Fav a recipe in the recipe page.
 - Error handling.
+- Lazy loading for card images.
 
 ## Nice to have
 Some features would be really nice but time was limited:
-- Lazy loading for assets.
 - More animation while showing recipes.
 - A real newsletter form.
 - Sanitization and cleaning of security risks such as html coming from the backend and reading local storage and parsing to JSON

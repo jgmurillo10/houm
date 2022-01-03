@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Alert, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, IconButton, Skeleton, Snackbar, Typography, styled } from '@mui/material';
+import { Alert, Button, Card, CardActionArea, CardActions, CardContent, IconButton, Snackbar, Typography, styled } from '@mui/material';
 import { RecipeI } from '../../common/types';
 import { Link } from 'react-router-dom';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { toggleWishList, selectRecipes } from '../../store/recipes/wishlistSlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import CardSkeleton from './CardSkeleton';
+import LazyCardImage from './LazyCardImage';
 
 const fallbackImage = 'https://spoonacular.com/recipeImages/18079-240x150.jpg';
 
@@ -28,28 +30,7 @@ const Summary = styled(Typography)({
   },
 });
 
-export function CardLoading({ summary }: { summary?: boolean }) {
-  return (
-    <Card sx={{ height: summary ? 462 : 322 }}>
-      <Skeleton sx={{ height: 190 }} animation='wave' variant='rectangular' />
-      <CardContent>
-        <React.Fragment>
-          <Typography sx={{ mb: 1 }} component='div' variant='h5'>
-            <Skeleton />
-          </Typography>
-          {summary &&
-            <>
-              {[0,1,2,3,4].map(i => <Skeleton key={i} animation='wave' height={10} style={{ marginBottom: 6 }} />)}
-              <Skeleton animation='wave' height={10} width='80%' />
-            </>
-          }
-        </React.Fragment>
-      </CardContent>
-    </Card>
-  )
-}
-
-export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
+const RecipeReviewCard = ({id, title, image, summary}: RecipeI) => {
   const dispatch = useAppDispatch();
   const favoriteRecipes = useAppSelector(selectRecipes);
   const [cardImage, setCardImage] = useState(image || fallbackImage);
@@ -70,7 +51,7 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
     <Card>
       <CardActionArea component={Link} to={`/recipes/${id}`}>
         {/* TODO(jgmurillo10): Add support for lazy loading images. */}
-        {image && <CardMedia
+        {image && <LazyCardImage
           onError={handleOnError}
           component='img'
           height='194'
@@ -106,3 +87,6 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
     </Card>
   );
 }
+
+export { CardSkeleton };
+export default RecipeReviewCard;

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useCallback, useRef } from 'react';
 import debounce from 'lodash.debounce';
 import { Pagination, TextField, Grid, Box, Typography } from '@mui/material';
 import { ComboBox, CheckboxesTags} from './../../Components/Autocomplete';
-import Card, { CardLoading } from './../../Components/Card';
+import Card, { CardSkeleton } from './../../Components/Card';
 import { OptionI, RecipeI } from '../../common/types';
 import { fetchFilteredRecipes, setSearchParams, setPage, selectFilteredRecipes, selectQueryStatus, selectQueryParams, selectPagination } from '../../store/recipes/querySlice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
@@ -99,7 +99,7 @@ const PanelSearch = () => {
         columnSpacing={{ xs: 1, sm: 2, md: 4 }}>
         {status === 'loading' ? [1,2,3,4,5,6,7,8,9,10,11,12].map(_ =>
           <Grid key={_} item xs={12} sm={6} md={6} lg={4}>
-            <CardLoading />
+            <CardSkeleton />
           </Grid>
         ) :
           recipes.map((randomRecipe:RecipeI) =>
