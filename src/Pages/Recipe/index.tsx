@@ -30,14 +30,10 @@ const RecipeImage = styled((props => <div {...props}></div>))(({ theme, image } 
     url(${image})
   `,
   backgroundSize: 'cover',
-  borderRadius: '0 0 20px 20px',
   margin: '0 -16px',
   [theme.breakpoints.up('sm')]: {
     margin: '0 -24px',
   },
-  [theme.breakpoints.up('md')]: {
-    borderRadius: '0 0 40px 40px',
-  }
 }));
 
 const RecipeHeading = styled(Typography)({
