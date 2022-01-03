@@ -18,16 +18,17 @@ For testing and development purposes the following staging links are available
 - Handling errors on null/wrong images.
 - Gitflow with main and develop branches with their corresponding staging links environments.
 - CI/CD with Github Actions.
+- Fav a recipe in the recipe page.
 
 ## Nice to have
 Some features would be really nice but time was limited:
 - Lazy loading for assets.
 - More animation while showing recipes.
 - A real newsletter form.
-- Fav a recipe in the recipe page.
 - Sanitization and cleaning of security risks such as html coming from the backend and reading local storage and parsing to JSON
 - Have a full suite of tests.
 - Add memoization/caching for server request to enhance UX and mitigate costs on the backend/services.
+- Abstract cards container and other reusable components.
 
 
 ## Other stuff

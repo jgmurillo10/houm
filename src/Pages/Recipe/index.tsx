@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { toggleWishList, selectRecipes } from '../../features/recipes/wishlistSlice';
 import { fetchRecipe, fetchRelatedRecipes, resetRecipe, selectRecipe, selectStatus, selectRelatedRecipes } from '../../features/recipes/recipeSlice';
 import { setSubtitle, setImage } from '../../features/meta/metaSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
-import { Box, styled, Typography, Grid, Avatar, Skeleton } from '@mui/material';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Box, Fab, styled, Typography, Grid, Avatar, Skeleton } from '@mui/material';
 import { RecipeExtendedI, RecipeI } from '../../common/types';
 import Note from './../../Components/Note';
 import Card from './../../Components/Card';
@@ -52,15 +55,43 @@ const RecipeDescription = styled('div')(({ theme }) => ({
   padding: theme.spacing(3)
 }));
 
+const FavButton = styled(Box)(({ theme }) => ({
+  position: 'fixed',
+  bottom: theme.spacing(2),
+  right: theme.spacing(2),
+  [theme.breakpoints.up('lg')]: {
+    position: 'absolute',
+    right: '50%',
+    bottom: 'unset',
+    top: '50%',
+    transform: 'translate(calc(-50% + 600px), calc(-50% - 100px))'
+  }
+}));
+
 const Recipe = () => {
   const { recipeId } = useParams();
   const recipe = useAppSelector(selectRecipe) as RecipeExtendedI;
   const status = useAppSelector(selectStatus);
   const relatedRecipes = useAppSelector(selectRelatedRecipes);
+  const favedRecipes = useAppSelector(selectRecipes);
   const dispatch = useAppDispatch();
+  const [faved, setFaved] = useState(false);
 
+  const handleFavRecipe = () => {
+    dispatch(toggleWishList({
+      id: recipe.id,
+      title: recipe.title,
+      image: recipe.image,
+      summary: ''
+    }));
+  }
   useEffect(() => {
     if (recipe) {
+      const isFaved =
+        favedRecipes.find((favedRecipe) => favedRecipe.id === recipe.id) ? true
+        : false;
+
+      setFaved(isFaved);
       dispatch(setSubtitle(recipe.title));
       dispatch(setImage(recipe.image));
     }
@@ -68,7 +99,7 @@ const Recipe = () => {
     return () => {
       dispatch(setImage('https://houm.vercel.app/recipe_hero.jpg'));
     }
-  }, [dispatch, recipe]);
+  }, [dispatch, recipe, favedRecipes]);
 
   useEffect(() => {
     if (recipeId) {
@@ -114,31 +145,30 @@ const Recipe = () => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={8} lg={8}>
-              {/* TODO(jgmurillo10): Remove sanitize html to avoid security risks. */}
-              <RecipeDescription dangerouslySetInnerHTML={{__html: recipe.summary}} sx={{ my: 4 }} />
-              <Box sx={{ p: 3 }}>
-                <Typography variant='h4' component='h2' sx={{ my: 2}}>
-                  Ingredients
-                </Typography>
-                {recipe.extendedIngredients.map((ingredient:any, i:number) => (
-                  <Box key={i} sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                    <Avatar
-                      alt={ingredient.name}
-                      src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
-                      sx={{ mr: 2 }} />
-                    {ingredient.originalString}
-                  </Box>
-                ))}
-              </Box>
-              {
-                recipe.instructions && <Box sx={{ p: 3 }}>
-                  <Typography variant='h4' component='h2'sx={{ my: 2 }}>
-                    Instructions
-                  </Typography>
-                  <RecipeList items={recipe.analyzedInstructions[0].steps} />
+            {/* TODO(jgmurillo10): Remove sanitize html to avoid security risks. */}
+            <RecipeDescription dangerouslySetInnerHTML={{__html: recipe.summary}} sx={{ my: 4 }} />
+            <Box sx={{ p: 3 }}>
+              <Typography variant='h4' component='h2' sx={{ my: 2}}>
+                Ingredients
+              </Typography>
+              {recipe.extendedIngredients.map((ingredient:any, i:number) => (
+                <Box key={i} sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                  <Avatar
+                    alt={ingredient.name}
+                    src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
+                    sx={{ mr: 2 }} />
+                  {ingredient.originalString}
                 </Box>
-              }
-
+              ))}
+            </Box>
+            {
+              recipe.instructions && <Box sx={{ p: 3 }}>
+                <Typography variant='h4' component='h2'sx={{ my: 2 }}>
+                  Instructions
+                </Typography>
+                <RecipeList items={recipe.analyzedInstructions[0].steps} />
+              </Box>
+            }
           </Grid>
       </Grid>
       <Typography variant='h4' component='h2' sx={{ my: 2}}>
@@ -159,6 +189,11 @@ const Recipe = () => {
             </Grid>
           )}
       </Grid>
+      <FavButton sx={{ '& > :not(style)': { m: 1 } }} onClick={handleFavRecipe}>
+        <Fab aria-label="like">
+          { faved ? <Favorite/> : <FavoriteBorder />}
+        </Fab>
+      </FavButton>
     </Box>
   );
 };

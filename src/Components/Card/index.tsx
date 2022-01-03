@@ -59,7 +59,7 @@ export default function RecipeReviewCard({id, title, image, summary}: RecipeI) {
 
   const handleAdd = () => {
     if (!faved) setOpen(true);
-    dispatch(toggleWishList({id, title, image, summary}));
+    dispatch(toggleWishList({ id, title, image, summary: '' }));
   };
 
   const handleClose = () => {
