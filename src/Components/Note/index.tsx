@@ -14,7 +14,7 @@ const Note = ({cookingMinutes,
   servings
   } : PropsInfoRecipeI) => {
   return (
-    <Card sx={{ maxWidth: 345, mx: 'auto' }} style={{ top: -20, position: 'relative' }}>
+    <Card sx={{ maxWidth: 345, mx: 'auto' }} style={{ top: 20, position: 'sticky', marginTop: -20 }}>
       <CardMedia
         component='img'
         height='140'
