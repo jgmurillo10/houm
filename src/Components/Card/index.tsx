@@ -50,7 +50,6 @@ const RecipeReviewCard = ({id, title, image, summary}: RecipeI) => {
   return (
     <Card>
       <CardActionArea component={Link} to={`/recipes/${id}`}>
-        {/* TODO(jgmurillo10): Add support for lazy loading images. */}
         {image && <LazyCardImage
           onError={handleOnError}
           component='img'
